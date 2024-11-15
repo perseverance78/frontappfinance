@@ -1,0 +1,54 @@
+<nav class="sidebar sidebar-offcanvas" id="sidebar">
+    <!-- <div class="sidebar-brand-wrapper d-none d-lg-flex align-items-center justify-content-center fixed-top">
+      <a class="sidebar-brand brand-logo" href="index.html"><img src="assets/images/logo.svg" alt="logo" /></a>
+      <a class="sidebar-brand brand-logo-mini" href="index.html"><img src="assets/images/logo-mini.svg" alt="logo" /></a>
+    </div> -->
+    <ul class="nav">
+      <li class="nav-item profile" >
+        <div class="profile-desc">
+          <div class="profile-pic">
+            <div class="count-indicator">
+              <img class="img-xs rounded-circle " src="assets/images/faces/face15.jpg" alt="">
+              <span class="count bg-success"></span>
+            </div>
+            <div class="profile-name">
+              <h5 class="mb-0 font-weight-normal" translate>Henry Klein</h5>
+              <span translate>Gold Member</span>
+            </div>
+          </div>
+          
+        </div>
+      </li>
+      <li class="nav-item nav-category">
+        <span class="nav-link" translate>Navigation</span>
+      </li>
+      <ng-container *ngFor="let item of sidebarItems">
+        <li class="nav-item menu-items">
+          <!-- Si el item no tiene hijos, se muestra como un enlace simple -->
+          <a class="nav-link" *ngIf="!item.children" [routerLink]="item.route" routerLinkActive="active">
+            <span class="menu-icon">
+              <i [class]="item.icon"></i>
+            </span>
+            <span class="menu-title" translate>{{ item.title }}</span>
+          </a>
+  
+          <!-- Si el item tiene hijos, se muestra como un menú desplegable -->
+          <a class="nav-link" *ngIf="item.children" (click)="toggleItem(item)" [attr.aria-expanded]="item.expanded">
+            <span class="menu-icon">
+              <i [class]="item.icon"></i>
+            </span>
+            <span class="menu-title" translate>{{ item.title }}</span>
+            <i class="menu-arrow"></i>
+          </a>
+          <div class="collapse" [ngClass]="{'show': item.expanded}">
+            <ul class="nav flex-column sub-menu">
+              <li class="nav-item" *ngFor="let child of item.children">
+                <a class="nav-link" [routerLink]="child.route" routerLinkActive="active" translate>{{ child.title }}</a>
+              </li>
+            </ul>
+          </div>
+        </li>
+      </ng-container>
+    </ul>
+  </nav>
+  

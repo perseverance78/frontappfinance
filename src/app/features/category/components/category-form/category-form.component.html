@@ -1,0 +1,28 @@
+
+
+<h2>Agregar Categoria</h2>
+<form [formGroup]="categoryForm" (ngSubmit)="onSubmit()">
+  <!-- Campo para Categoría -->
+  <mat-form-field appearance="fill">
+    <mat-label>Categoria</mat-label>
+    <input matInput type="text" formControlName="nombre" required>
+  </mat-form-field>
+
+  <!-- Campo para Tipo -->
+  <mat-form-field appearance="fill">
+    <mat-label>Tipo</mat-label>
+    <mat-select formControlName="tipo" required>
+      <mat-option value="Ingreso">Ingreso</mat-option>
+      <mat-option value="Gasto">Gasto</mat-option>
+    </mat-select>
+    <!-- <mat-error *ngIf="categoryForm.get('tipo')?.hasError('required')">
+      El tipo es requerido
+    </mat-error> -->
+  </mat-form-field>
+
+
+  <div mat-dialog-actions>
+    <button mat-button type="button" (click)="onClose()">Cancelar</button>
+    <button mat-raised-button color="primary" type="submit">Guardar</button>
+  </div>
+</form>

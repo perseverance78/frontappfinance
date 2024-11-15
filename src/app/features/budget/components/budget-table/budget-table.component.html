@@ -1,0 +1,50 @@
+<div class="demo-button-container">
+  <button mat-raised-button (click)="openForm()" class="demo-button">
+    Agregar presupuesto
+  </button>
+</div>
+<mat-form-field>
+  <mat-label>Filtro</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ej. Mia" #input>
+</mat-form-field>
+<div class="mat-elevation-z8">
+  <table class="custom-table" mat-table [dataSource]="dataSource" matSort (matSortChange)="announceSortChange($event)">
+
+    <!-- Position Column -->
+    <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header sortActionDescription="Sort by name"> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.presupuesto_id}} </td>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="categoria">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header > Categoria</th>
+      <td mat-cell *matCellDef="let element" (dblclick)="onDoubleClick(element)"> {{element.categoria_id}} </td>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="monto">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Monto </th>
+      <td mat-cell *matCellDef="let element"> {{element.monto_max}} </td>
+    </ng-container>
+
+    <!-- Symbol Column -->
+    <ng-container matColumnDef="fechaInicio">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Inicio </th>
+      <td mat-cell *matCellDef="let element"> {{element.fecha_inicio}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="fechaFin">
+      <th mat-header-cell *matHeaderCellDef mat-sort-header> Fecha Fin </th>
+      <td mat-cell *matCellDef="let element"> {{element.fecha_fin}} </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div>

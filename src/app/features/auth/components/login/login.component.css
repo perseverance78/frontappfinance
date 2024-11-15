@@ -1,0 +1,26 @@
+.disabled {
+    pointer-events: none; /* Prevenir el clic */
+    color: gray; /* Cambiar el color del texto */
+    text-decoration: none; /* Eliminar el subrayado */
+  }
+
+  .error {
+    color: #ffffff; /* Color rojo más suave */
+    font-size: 0.9em; /* Tamaño de fuente */
+    font-weight: 500; /* Peso de la fuente */
+    margin-top: 0.5em; /* Espacio superior */
+    margin-bottom: 0.5em; /* Espacio inferior */
+    padding: 0.5em; /* Espacio interior */
+    border: 1px solid #000000; /* Borde rojo */
+    border-radius: 4px; /* Bordes redondeados */
+    background-color: #000000; /* Fondo suave */
+    display: inline-block; /* Se muestra en línea con margen */
+    opacity: 0; /* Inicia invisible */
+    transform: translateY(-10px); /* Se desplaza ligeramente hacia arriba */
+    transition: opacity 0.5s ease, transform 0.5s ease; /* Animación suave */
+  }
+  
+  .error.show {
+    opacity: 1; /* Hace que el mensaje sea visible */
+    transform: translateY(0); /* Restablece la posición original */
+  }

@@ -1,0 +1,7 @@
+@mixin alert-variant($bg-color, $border-color, $text-color) {
+    background-color: $bg-color;
+    border-color: $border-color;
+    color: $text-color;
+    border: 1px solid $border-color;
+    border-radius: 0.25rem;
+  }
