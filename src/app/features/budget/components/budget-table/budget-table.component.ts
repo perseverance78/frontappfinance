@@ -119,12 +119,12 @@ export class BudgetTableComponent  implements AfterViewInit{
         };
         this.budgetService.addBudget(categoryData).subscribe({
           next: () => {
-            this.snackBar.open('Categoría creada exitosamente', 'Cerrar', { duration: 3000 });
+            this.snackBar.open('Presupuesto registrado exitosamente', 'Cerrar', { duration: 3000 });
             this.loadRecords();
 
           },
           error: () => {
-            this.snackBar.open('Error al crear la categoría', 'Cerrar', { duration: 3000 });
+            this.snackBar.open('Error al registrar el presupuesto', 'Cerrar', { duration: 3000 });
           }
         });
       }

@@ -1,26 +1,23 @@
-
-import { Component, inject, ViewChild } from '@angular/core';
-
-import { MatSnackBar} from '@angular/material/snack-bar';
-
-import { MatDialog, MatDialogModule, MatDialogRef } from '@angular/material/dialog';
-import { IncomesFormComponent } from '../incomes-form/incomes-form.component';
-import { CommonModule } from '@angular/common';
-import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
-import { MatIconModule } from '@angular/material/icon';
-import { MatButtonModule } from '@angular/material/button';
 import { DragDropModule } from '@angular/cdk/drag-drop';
+import { CommonModule } from '@angular/common';
+import { Component, inject, ViewChild } from '@angular/core';
+import { MatButtonModule } from '@angular/material/button';
+import { MatDialog, MatDialogModule } from '@angular/material/dialog';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
+import { MatPaginator, MatPaginatorModule } from '@angular/material/paginator';
 import { MatSort, MatSortModule, Sort } from '@angular/material/sort';
-import { IncomesService } from '../../services/incomes.service';
+import { MatTableDataSource, MatTableModule } from '@angular/material/table';
+import { ExpensesService } from '../../services/expenses.service';
+import { MatSnackBar } from '@angular/material/snack-bar';
+import { DialogField, Expenses } from '../../../../core/interface/record';
 import { LiveAnnouncer } from '@angular/cdk/a11y';
+import { ExpensesFormComponent } from '../expenses-form/expenses-form.component';
 import { EditDialogComponent } from '../../../../shared/components/edit-dialog/edit-dialog.component';
-import { DialogField, Incomes } from '../../../../core/interface/record';
 
 @Component({
-  selector: 'app-incomes-table',
+  selector: 'app-expenses-table',
   standalone: true,
   imports: [
     CommonModule,
@@ -34,19 +31,18 @@ import { DialogField, Incomes } from '../../../../core/interface/record';
     MatInputModule,
     MatSortModule
   ],
-  templateUrl: './incomes-table.component.html',
-  styleUrl: './incomes-table.component.css'
+  templateUrl: './expenses-table.component.html',
+  styleUrl: './expenses-table.component.css'
 })
-export class IncomesTableComponent {
-
-  displayedColumns: string[] = ['id', 'monto', 'fecha','fuente','esFijo'];
-  dataSource = new MatTableDataSource<Incomes>([]);
+export class ExpensesTableComponent {
+  displayedColumns: string[] = ['id', 'categoria', 'monto','fecha','descripcion', 'esFijo'];
+  dataSource = new MatTableDataSource<Expenses>([]);
   private _liveAnnouncer = inject(LiveAnnouncer);
   
   @ViewChild(MatPaginator) paginator!: MatPaginator;
   @ViewChild(MatSort) sort!: MatSort;
 
-  constructor(private incomesService: IncomesService, private dialog: MatDialog, private snackBar: MatSnackBar,) {}
+  constructor(private expensesService: ExpensesService, private dialog: MatDialog, private snackBar: MatSnackBar,) {}
 
 
   ngAfterViewInit() {
@@ -75,7 +71,7 @@ export class IncomesTableComponent {
   }
 
   openForm(): void {
-    const dialogRef = this.dialog.open(IncomesFormComponent, {
+    const dialogRef = this.dialog.open(ExpensesFormComponent, {
       width: '400px',
       height: '540px',
       panelClass: 'custom-dialog-container'
@@ -84,18 +80,18 @@ export class IncomesTableComponent {
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         const id = localStorage.getItem('user_id');
-        const incomesData = {
+        const expensesData = {
           ...result,
           id
         };
-        this.incomesService.addIncomes(incomesData).subscribe({
+        this.expensesService.addExpenses(expensesData).subscribe({
           next: () => {
-            this.snackBar.open('Ingreso registrado exitosamente', 'Cerrar', { duration: 3000 });
+            this.snackBar.open('Gasto registrado exitosamente', 'Cerrar', { duration: 3000 });
             this.loadRecords();
 
           },
           error: () => {
-            this.snackBar.open('Error al registrar el ingreso', 'Cerrar', { duration: 3000 });
+            this.snackBar.open('Error al crear registrar el gasto', 'Cerrar', { duration: 3000 });
           }
         });
       }
@@ -108,8 +104,7 @@ export class IncomesTableComponent {
   }
 
   loadRecords(): void {
-    this.incomesService.getIncomes().subscribe(data => {
-      console.log(data)
+    this.expensesService.getExpenses().subscribe(data => {
       this.dataSource.data = data;
       this.dataSource.paginator = this.paginator;
     }, error => {
@@ -117,52 +112,50 @@ export class IncomesTableComponent {
     });
   }
 
-  onDoubleClick(incomes: Incomes): void {
+  onDoubleClick(expenses: Expenses): void {
     const fields: DialogField[] = [
-     
+      { key: 'categoria_id', label: 'Categoria', type: 'text' },
       { key: 'monto', label: 'Monto', type: 'number' },
       { key: 'fecha', label: 'Fecha', type: 'date' },
-      { key: 'fuente', label: 'Fuente', type: 'text' },
-      { key: 'es_fijo', label: 'Es fijo', type: 'number'}
+      { key: 'descripcion', label: 'Descripcion', type: 'text' },
+      { key: 'es_fijo', label: 'Es fijo', type: 'number' },
     ];
 
     const dialogRef = this.dialog.open(EditDialogComponent, {
       data: {
         title: 'Editar Registro',
         fields: fields,
-        data: { ...incomes } // Pasamos una copia del registro
+        data: { ...expenses } // Pasamos una copia del registro
       }
     });
 
     dialogRef.afterClosed().subscribe(result => {
       if (result) {
         // Llamar al servicio para actualizar los datos (según el contexto)
-        this.incomesService.updateIncomes(result).subscribe(() => {
+        this.expensesService.updateExpenses(result).subscribe(() => {
           this.loadRecords(); // Recargar los datos después de la actualización
         });
       }
     });
   }
 
-  // drop(event: CdkDragDrop<Incomes[]>): void {
+  // drop(event: CdkDragDrop<Expenses[]>): void {
   //   moveItemInArray(this.dataSource.data, event.previousIndex, event.currentIndex);
   //   this.dataSource.data = [...this.dataSource.data];
   //   // Puedes implementar la lógica para actualizar el orden en el servidor si es necesario
   // }
 
-  // confirmDelete(incomes: Incomes): void {
+  // confirmDelete(record: Expenses): void {
   //   // const dialogRef = this.dialog.open(ConfirmDialogComponent, {
-  //   //   data: { name: incomes.name }
+  //   //   data: { name: record.name }
   //   // });
 
   //   // dialogRef.afterClosed().subscribe(result => {
   //   //   if (result) {
-  //   //     this.incomesService.deleteRecord(incomes.presupuesto_id).subscribe(() => {
+  //   //     this.expensesService.deleteRecord(record.presupuesto_id).subscribe(() => {
   //   //       this.loadRecords(); // Recarga los datos
   //   //     });
   //   //   }
   //   // });
   // }
-
-
 }

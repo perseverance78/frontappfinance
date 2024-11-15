@@ -59,6 +59,12 @@ export class AuthService {
     localStorage.removeItem('user_id');
   }
 
+  register(userData: { name:string, email: string; password: string, password_confirmation:string }): Observable<any> {
+    console.log(userData);
+    return this.http.post(`${this.baseUrl}/register`, userData);
+   
+  }
+
   // Manejo de errores (sin `ErrorEvent` para mayor compatibilidad)
   private handleError(error: HttpErrorResponse) {
     const errorMessage = error.error?.message || `Error ${error.status}: ${error.message}`;

@@ -1,1 +1,38 @@
-<p>expenses-form works!</p>
+
+<h2>Agregar Registro</h2>
+<form [formGroup]="expensesForm" (ngSubmit)="onSubmit()">
+  <!-- Campo para Categoría -->
+  <mat-form-field appearance="fill">
+    <mat-label>Categoria</mat-label>
+    <input matInput type="number" formControlName="categoria_id" required>
+  </mat-form-field>
+
+  <!-- Campo para Monto -->
+  <mat-form-field appearance="fill">
+    <mat-label>Monto</mat-label>
+    <input matInput type="number" formControlName="monto" required>
+  </mat-form-field>
+
+  <!-- Campo para Fecha de Vencimiento -->
+  <mat-form-field appearance="fill">
+    <mat-label>Fecha</mat-label>
+    <input matInput type="date" formControlName="fecha" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Descripcion</mat-label>
+    <input matInput type="text" formControlName="descripcion" required>
+  </mat-form-field>
+
+  <mat-form-field appearance="fill">
+    <mat-label>Es fijo</mat-label>
+    <input matInput type="number" formControlName="es_fijo" required>
+  </mat-form-field>
+
+
+
+  <div mat-dialog-actions>
+    <button mat-button type="button" (click)="onClose()">Cancelar</button>
+    <button mat-raised-button color="primary" type="submit">Guardar</button>
+  </div>
+</form>

@@ -88,12 +88,12 @@ export class TableComponent implements AfterViewInit{
         };
         this.categoryService.addCategory(categoryData).subscribe({
           next: () => {
-            this.snackBar.open('Deuda registrada exitosamente', 'Cerrar', { duration: 3000 });
+            this.snackBar.open('Categoria registrada exitosamente', 'Cerrar', { duration: 3000 });
             this.loadRecords();
 
           },
           error: () => {
-            this.snackBar.open('Error al registrar la deuda', 'Cerrar', { duration: 3000 });
+            this.snackBar.open('Error al registrar la categoria', 'Cerrar', { duration: 3000 });
           }
         });
       }
@@ -107,7 +107,6 @@ export class TableComponent implements AfterViewInit{
 
   loadRecords(): void {
     this.categoryService.getCategory().subscribe(data => {
-      console.log(data)
       this.dataSource.data = data;
       this.dataSource.paginator = this.paginator;
     }, error => {

@@ -1,11 +1,11 @@
 import { Component } from '@angular/core';
+import { ExpensesTableComponent } from '../expenses-table/expenses-table.component';
 
 @Component({
   selector: 'app-expenses',
   standalone: true,
-  imports: [],
-  templateUrl: './expenses.component.html',
-  styleUrl: './expenses.component.css'
+  imports: [ExpensesTableComponent],
+  templateUrl: './expenses.component.html'
 })
 export class ExpensesComponent {
 

@@ -59,25 +59,22 @@ export class LoginComponent {
       if (errorElement) {
         errorElement.classList.add('show');
       }
-    }, 0); // Asegúrate de que el DOM se haya actualizado antes de agregar la clase
+    }, 0); 
   
-    // Opcional: puedes limpiar el error después de un tiempo
+  
     setTimeout(() => {
-      this.loginError = null; // Limpia el mensaje después de un tiempo
+      this.loginError = null; 
     }, 3000); // Limpiar después de 3 segundos, por ejemplo
   }
   
   login(username: string, password: string) {
     this.authService.login(username, password).subscribe(
       response => {
-        console.log(response);
-        // Aquí puedes redirigir al usuario al dashboard o a otra ruta
         this.router.navigate(['/dashboard']);
       },
       error => {
         // Manejo del error
         this.loginError = 'Usuario o contraseña incorrectos';
-        // Opcionalmente, puedes establecer el error en el formulario
         this.loginForm.setErrors({ incorrect: true });
         this.showError(this.loginError)
       }

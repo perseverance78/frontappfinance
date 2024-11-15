@@ -30,6 +30,16 @@ export interface Incomes{
   es_fijo: boolean;
 }
 
+export interface Expenses{
+  id:number;
+  gasto_id:number;
+  categoria_id:number;
+  monto:number;
+  fecha:string;
+  descripcion:string;
+  es_fijo: boolean;
+}
+
   // dialog-field.interface.ts
 export interface DialogField {
   key: string;        // Clave del campo, enlazado al objeto `data`
