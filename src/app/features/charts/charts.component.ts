@@ -84,6 +84,7 @@ export class ChartsComponent implements OnInit {
 
   loadCategoryExpenses() {
     this.financialService.getCategoryExpenses().subscribe(data => {
+      console.log(data)
       this.categoryExpensesData.labels = data.map(item => item.categoria);
       this.categoryExpensesData.datasets[0].data = data.map(item => item.total);
     });

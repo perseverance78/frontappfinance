@@ -46,21 +46,21 @@ export class SidebarService {
         route: '/dashboard/budget'
         
       },
-      {
-        title: 'Alertas',
-        icon: 'mdi mdi-message-alert',
-        route: '/dashboard/alerts'
-      },
+      // {
+      //   title: 'Alertas',
+      //   icon: 'mdi mdi-message-alert',
+      //   route: '/dashboard/alerts'
+      // },
       {
         title: 'Deuda',
         icon: 'mdi mdi-currency-usd-off',
         route: '/dashboard/debts'
       },
-      {
-        title: 'Objetivo Ahorro',
-        icon: 'mdi mdi-flag-checkered',
-        route: '/dashboard/savings-goals'
-      },
+      // {
+      //   title: 'Objetivo Ahorro',
+      //   icon: 'mdi mdi-flag-checkered',
+      //   route: '/dashboard/savings-goals'
+      // },
       
     ];
   }

@@ -15,10 +15,12 @@ import { SidebarService, SidebarItem } from '../../services/sidebar/sidebar.serv
 export class SidebarComponent implements OnInit {
 
   sidebarItems: SidebarItem[] = [];
+  userName : string | null = null;
 
   constructor(private sidebarService: SidebarService) {}
 
   ngOnInit() {
+
     this.sidebarItems = this.sidebarService.getSidebarItems();
     const body = document.querySelector('body');
 
@@ -35,6 +37,8 @@ export class SidebarComponent implements OnInit {
         }
       });
     });
+    this.userName = localStorage.getItem('name_user');
+  
   }
 
   toggleItem(item: SidebarItem): void {

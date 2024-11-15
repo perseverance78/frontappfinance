@@ -12,23 +12,27 @@ import { Router } from '@angular/router';
   styleUrl: './navbar.component.scss',
   providers: [NgbDropdownConfig]
 })
-export class NavbarComponent implements OnInit {
+export class NavbarComponent  implements OnInit{
 
   public iconOnlyToggled = false;
   public sidebarToggled = false;
+  userName : string | null = null;
 
   
   constructor(
     config: NgbDropdownConfig, 
-    private authService: AuthService, 
-    private router: Router
+    private router: Router,
+    private authService: AuthService
   ) 
   {
     config.placement = 'bottom-right';
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
+    this.userName = localStorage.getItem('name_user');
   }
+
+  
 
   // toggle sidebar in small devices
   toggleOffcanvas() {
